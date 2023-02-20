@@ -18,17 +18,14 @@ def get_the_cheapest_big_mac_price_by_year(year):
     '''
 
 def get_the_most_expensive_big_mac_price_by_year(year):
-    queryString = df['date'].at.year == year
+    queryString = f"date >= '{year}-01-01' and date <= '{year}-12-31'"
     df_Year = df.query(queryString)
     print(df_Year)
-    '''
-    queryYear = df.query(queryString)
-    print(queryYear)
     mostExp = round(df['dollar_price'].max(),2)
     idx = df["dollar_price"].idxmax()
     mostExpCountry = df.loc[idx]
     print(f"{mostExpCountry['name']}({mostExpCountry['iso_a3']}): {mostExp}")
-    '''
+
 if __name__ == "__main__":
     df = pd.read_csv(big_mac_file)
     userYear = 2005
